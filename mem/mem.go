@@ -12,6 +12,15 @@ func init() {
 	invoke = common.Invoke{}
 }
 
+type RAMInfo struct {
+	Manufacturer string `json:"manufacturer"`
+	SerialNumber string `json:"serialNumber"`
+	AssetTag     string `json:"assetTag"`
+	Size string `json:"total"`
+	Speed string `json:"speed"`
+	Type string `json:"usedPercent"`
+}
+
 // Memory usage statistics. Total, Available and Used contain numbers of bytes
 // for human consumption.
 //

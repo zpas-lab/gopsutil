@@ -8,7 +8,51 @@ import (
 	"syscall"
 
 	"github.com/zpas-lab/gopsutil/internal/common"
+	"os/exec"
 )
+
+func GetRAMInfo() ([]*RAMInfo, error) {
+	var RAMInfoArr []*RAMInfo
+
+	dmidecode, err := exec.LookPath("dmidecode")
+	if err != nil {
+		return RAMInfoArr, err
+	}
+
+	// 17 is mapped into "Memory Device"
+	out, err := invoke.Command(dmidecode, "-t", "17")
+	if err != nil {
+		return RAMInfoArr, err
+	}
+
+	devices := strings.Split(string(out), "Memory Device")
+	for _, d := range devices {
+		lines := strings.Split(d, "\n")
+		info := &RAMInfo{}
+		for _, line := range(lines) {
+			values := strings.Split(line, ":")
+			if len(values) < 2 {
+				continue
+			}
+			key := strings.TrimSpace(values[0])
+			value := strings.TrimSpace(values[1])
+			switch key {
+			case "Manufacturer":
+				info.Manufacturer= value
+			case "Serial Number":
+				info.SerialNumber = value
+			case "Size":
+				info.Size = value
+			case "Speed":
+				info.Speed = value
+			case "Type":
+				info.Type = value
+			}
+		}
+		RAMInfoArr = append(RAMInfoArr, info)
+	}
+	return RAMInfoArr, nil
+}
 
 func VirtualMemory() (*VirtualMemoryStat, error) {
 	filename := common.HostProc("meminfo")
