@@ -3,7 +3,6 @@
 package disk
 
 import (
-	"fmt"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -359,26 +358,24 @@ func IOCounters() (map[string]IOCountersStat, error) {
 // GetDiskSerialNumber returns Serial Number of given device or empty string
 // on error. Name of device is expected, eg. /dev/sda
 func GetDiskSerialNumber(name string) string {
-	n := fmt.Sprintf("--name=%s", name)
-	udevadm, err := exec.LookPath("/sbin/udevadm")
+	hdparm, err := exec.LookPath("hdparm")
 	if err != nil {
 		return ""
 	}
 
-	out, err := invoke.Command(udevadm, "info", "--query=property", n)
-
+	out, err := invoke.Command(hdparm, "-I", name)
 	// does not return error, just an empty string
 	if err != nil {
 		return ""
 	}
 	lines := strings.Split(string(out), "\n")
 	for _, line := range lines {
-		values := strings.Split(line, "=")
-		if len(values) < 2 || values[0] != "ID_SERIAL" {
+		values := strings.Split(line, ":")
+		if len(values) < 2 || strings.TrimSpace(values[0]) != "Serial Number" {
 			// only get ID_SERIAL, not ID_SERIAL_SHORT
 			continue
 		}
-		return values[1]
+		return strings.TrimSpace(values[1])
 	}
 	return ""
 }
