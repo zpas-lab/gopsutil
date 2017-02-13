@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/shirou/gopsutil/internal/common"
+	"github.com/zpas-lab/gopsutil/internal/common"
 )
 
 var cpu_tick = float64(100)
@@ -272,4 +272,8 @@ func parseStatLine(line string) (*TimesStat, error) {
 	}
 
 	return ct, nil
+}
+
+func GetCpuSerialNumber() string {
+	return ""
 }

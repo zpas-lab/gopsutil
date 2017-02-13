@@ -13,9 +13,9 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/internal/common"
-	"github.com/shirou/gopsutil/net"
+	"github.com/zpas-lab/gopsutil/cpu"
+	"github.com/zpas-lab/gopsutil/internal/common"
+	"github.com/zpas-lab/gopsutil/net"
 )
 
 // copied from sys/sysctl.h

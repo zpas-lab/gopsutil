@@ -8,7 +8,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/shirou/gopsutil/internal/common"
+	"github.com/zpas-lab/gopsutil/internal/common"
 )
 
 func getHwMemsize() (uint64, error) {

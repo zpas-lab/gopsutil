@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shirou/gopsutil/internal/common"
+	"github.com/zpas-lab/gopsutil/internal/common"
 	"github.com/stretchr/testify/assert"
 )
 

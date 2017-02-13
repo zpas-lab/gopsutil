@@ -2,7 +2,7 @@
 
 package host
 
-import "github.com/shirou/gopsutil/internal/common"
+import "github.com/zpas-lab/gopsutil/internal/common"
 
 func Info() (*InfoStat, error) {
 	return nil, common.ErrNotImplementedError
