@@ -1,4 +1,4 @@
-package system
+package base_board
 
 import (
 	"github.com/zpas-lab/gopsutil/internal/common"

@@ -1,4 +1,4 @@
-package system
+package base_board
 
 import (
 	"os/exec"
